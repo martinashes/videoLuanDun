@@ -29,14 +29,13 @@ def compose_viedo(background_image, video_file, head_image, filename):
 
     # 生成视频文件
     output_path = os.path.join(output_folder, filename)
-    final_clip.write_videofile(output_path, fps=30, codec='libx264', preset='ultrafast', threads=10,
-                               ffmpeg_params=['-threads', '12'])
+    final_clip.write_videofile(output_path, fps=30, codec='libx264', preset='ultrafast', threads=6)
 
 
 def main():
-    video_file_pack = get_files_with_extension('./viedo', 'mp4')
+    video_file_pack = get_files_with_extension('./video', 'mp4')
     head_pack = get_files_with_extension('./head', 'png')
-    background_img_pack = get_files_with_extension('./background', 'jpg')
+    background_img_pack = get_files_with_extension('./background', 'jpeg')
     j = 1
 
     for video_file in video_file_pack:
@@ -49,18 +48,11 @@ def main():
 
 
 def get_files_with_extension(directory, extension):
-    """
-    Get a list of file names in the specified directory with the given extension.
-
-    Parameters:
-        directory (str): The path to the directory to search for files.
-        extension (str): The file extension to filter the files (e.g., '.txt', '.jpg').
-
-    Returns:
-        List[str]: A list of file names with the specified extension.
-    """
     file_names = []
     for file in os.listdir(directory):
         if file.endswith(extension):
-            file_names.append(file)
+            file_names.append(directory + '/' + file)
     return file_names
+
+
+main()
